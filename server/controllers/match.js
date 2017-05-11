@@ -1,4 +1,6 @@
 const Match = require('../models/match');
+const User = require('../models/user');
+const Relation = require('../helpers/relation.js');
 
 let matchControl = {
   showAll: function(req, res) {
@@ -29,6 +31,8 @@ let matchControl = {
         let against = req.body.against || match.against;
 
         Match.update({_id: req.params.matchId}, {$set:{
+          creator: creator,
+          against: against,
           coordinate: req.body.coordinate || match.coordinate,
           place: req.body.place || match.place,
           address: req.body.address || match.address,
@@ -49,7 +53,7 @@ let matchControl = {
       }
     });
   },
-  add: function(req, res) {
+  create: function(req, res) {
     let newMatch = new Match({
       creator: req.body.creator,
       against: null,
@@ -66,6 +70,7 @@ let matchControl = {
       if(err) {
         res.send(err);
       } else {
+        Relation.user.appendCreatedMatch(req.body.creator, newMatch._id);
         res.send(newMatch);
       }
     });
@@ -76,14 +81,34 @@ let matchControl = {
       if(err) {
         res.send(err);
       } else {
-        let response = {
-          id: req.params.matchId,
-          status: 'success',
-          message: 'match is sucessfully deleted'
-        };
+        let removeFromCreated = Relation.user.removeCreatedMatch(match.creator, req.params.matchId);
+        let removeFromSelected = Relation.user.removeSelectedMatch(match.against, req.params.matchId);
+        console.log('removeFromCreated: ', removeFromCreated);
+        console.log('removeFromSelected: ', removeFromSelected);
+        let response = {};
+        if(removeFromCreated && removeFromSelected) {
+          response.status = 'success';
+          response.message = 'match has been deleted, and users have been updated';
+        } else {
+          response.status = 'failed',
+          response.message = 'match has been deleted, but users are not updated';
+        }
         res.send(response);
       }
     });
+  },
+  selected: function(req, res) {
+    let matchSelect = Relation.match.selected(req.params.matchId, req.body.userId);
+    let appendSelected = Relation.user.appendSelectedMatch(req.body.userId, req.params.matchId);
+    let response = {};
+    if(matchSelect && appendSelected) {
+      response.status = 'success';
+      response.message = 'match and user have been updated';
+    } else {
+      response.status = 'failed',
+      response.message = 'match and/or user are not updated';
+    }
+    res.send(response);
   }
 }
 

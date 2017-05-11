@@ -1,4 +1,7 @@
 const User = require('../models/user');
+const Match = require('../models/match');
+const bcrypt = require('bcrypt');
+let saltRounds = 10;
 
 let userControl = {
   showAll: function(req, res) {
@@ -41,6 +44,7 @@ let userControl = {
           User.update({_id: req.params.id}, {$set:{
             'local.username': req.body.name || user.local.username,
             'local.email': req.body.email || user.local.email,
+            'local.phone': req.body.phone || user.local.phone,
             'local.password': user.local.password,
             matchCreated: matchCreated,
             matchSelected: matchSelected
