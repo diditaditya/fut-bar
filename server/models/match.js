@@ -13,7 +13,8 @@ let matchSchema = new Schema({
   createdAt: Date,
   updatedAt: Date,
   matchTime: Date,
-  openStatus: Boolean
+  openStatus: Boolean,
+  expire: Boolean
 });
 
 let Match = mongoose.model('Match', matchSchema);

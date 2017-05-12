@@ -3,6 +3,7 @@ const User = require('../models/user');
 var map = require('../models/mapapi');
 const Relation = require('../helpers/relation.js');
 const CronJob = require('../background-jobs/cron-job');
+const AutoRemove = require('../background-jobs/autoremove');
 
 let matchControl = {
   showAll: function(req, res) {
@@ -47,7 +48,8 @@ let matchControl = {
             createdAt: match.createdAt,
             updatedAt: new Date(),
             matchTime: req.body.matchTime || match.matchTime,
-            openStatus: req.body.openStatus || match.openStatus
+            openStatus: req.body.openStatus || match.openStatus,
+            expire: req.body.expire || match.expire
           }
         }, (err, updated) => {
           if (err) {
@@ -73,7 +75,8 @@ let matchControl = {
       phone: req.body.phone,
       createdAt: new Date(),
       matchTime: req.body.matchTime,
-      openStatus: true
+      openStatus: true,
+      expire: false
     });
 
     newMatch.save((err) => {
@@ -86,6 +89,7 @@ let matchControl = {
             res.send(err);
           } else {
             CronJob(user, newMatch);
+            AutoRemove(newMatch);
             res.send(newMatch);
           }
         });
