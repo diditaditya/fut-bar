@@ -6,6 +6,7 @@ let matchSchema = new Schema({
   against: {type: Schema.Types.ObjectId, ref: 'User'},
   name: String,
   coordinate: String,
+  place_id: String,
   place: String,
   address: String,
   phone: String,

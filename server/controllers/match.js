@@ -39,6 +39,7 @@ let matchControl = {
             against: against,
             name: req.body.name || match.name,
             coordinate: req.body.coordinate || match.coordinate,
+            place_id: req.body.place_id || match.place_id,
             place: req.body.place || match.place,
             address: req.body.address || match.address,
             phone: req.body.phone || match.phone,
@@ -65,6 +66,7 @@ let matchControl = {
       against: null,
       coordinate: req.body.coordinate,
       name: req.body.name,
+      place_id: req.body.place_id,
       place: req.body.place,
       address: req.body.address,
       phone: req.body.phone,
@@ -120,7 +122,6 @@ let matchControl = {
     res.send(response);
   },
   place: (req, res) => {
-    console.log('masuk');
     map.getmap(function(err, result) {
       if (!err) {
         res.send(result.slice(0, 5));
@@ -129,9 +130,8 @@ let matchControl = {
       }
     })
   },
-  placeDetail: (req, res) => {
-    console.log('masuk1');
-    map.getdetail(req.params.matchId, function(err, result) {
+  pdetail: (req, res) => {
+    map.getdetail(req.body.id, function(err, result) {
       if (!err) {
         res.send(result);
       } else {

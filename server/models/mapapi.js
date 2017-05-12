@@ -21,7 +21,6 @@ module.exports = {
     });
   },
   getdetail: (id, callback) => {
-    console.log(id);
     googleMapsClient.place({
       placeid: id
     }, function(err, responses) {
