@@ -116,7 +116,6 @@ let matchControl = {
     res.send(response);
   },
   place: (req, res) => {
-    console.log('masuk');
     map.getmap(function(err, result) {
       if (!err) {
         res.send(result.slice(0, 5));
@@ -125,9 +124,8 @@ let matchControl = {
       }
     })
   },
-  placeDetail: (req, res) => {
-    console.log('masuk1');
-    map.getdetail(req.params.matchId, function(err, result) {
+  pdetail: (req, res) => {
+    map.getdetail(req.body.id, function(err, result) {
       if (!err) {
         res.send(result);
       } else {
