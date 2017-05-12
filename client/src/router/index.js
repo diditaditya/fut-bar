@@ -5,6 +5,7 @@ import Router from 'vue-router'
 import Login from '@/components/Login'
 import Register from '@/components/Register'
 import Home from '@/components/Home'
+import formRoom from '@/components/formRoom'
 
 
 
@@ -12,8 +13,7 @@ Vue.use(VueAxios, axios)
 Vue.use(Router)
 
 export default new Router({
-  routes: [
-    {
+  routes: [{
       path: '/',
       name: 'Login',
       component: Login
@@ -27,6 +27,11 @@ export default new Router({
       path: '/Home',
       name: 'Home',
       component: Home
+    },
+    {
+      path: '/formRoom',
+      name: 'formRoom',
+      component: formRoom
     }
   ]
 })
