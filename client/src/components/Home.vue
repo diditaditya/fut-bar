@@ -7,17 +7,22 @@
         <div class="col s12 m6">
           <div class="card teal darken-1">
             <div class="card-content white-text">
-              <span class="card-title">Card Title</span>
+              <span class="card-title">{{match.name}}</span>
               <div class="left-align">
                 <p>{{match.place}}</p>
                 <p>{{match.address}}</p>
                 <p>{{match.phone}}</p>
                 <p>{{match.matchTime}}</p>
-                <p>{{match.openStatus}}</p>
+                <p>avaible : {{match.openStatus}}</p>
               </div>
             </div>
-            <div class="card-action">
-              <a href="javascript:void(0)" >Challange this team</a>
+            <div v-if="match.openStatus">
+              <div class="card-action">
+                <a href="javascript:void(0)" >Challange this team</a>
+              </div>
+            </div>
+            <div v-else>
+                <a href="javascript:void(0)" >Booked</a>
             </div>
           </div>
         </div>
@@ -46,7 +51,7 @@ export default {
         })
     },
     challangeTeam(){
-
+      
     }
   },
 
