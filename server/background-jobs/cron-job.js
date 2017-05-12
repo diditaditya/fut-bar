@@ -18,15 +18,15 @@ function sendEmail(job, done) {
   done();
 }
 
-let setCronJob = function(user, match) {
+let setCronJob = function(userData, match) {
 
   console.log('cron-job is called!');
 
   let user = {};
-  if(user.local) {
-    user = user.local;
-  } else if(user.facebook) {
-    user = user.facebook;
+  if(userData.local) {
+    user = userData.local;
+  } else if(userData.facebook) {
+    user = userData.facebook;
   }
 
   let title = match.name;

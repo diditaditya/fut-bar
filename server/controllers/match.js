@@ -86,9 +86,9 @@ let matchControl = {
             res.send(err);
           } else {
             CronJob(user, newMatch);
+            res.send(newMatch);
           }
-        }).
-        res.send(newMatch);
+        });
       }
     });
 
@@ -128,19 +128,19 @@ let matchControl = {
           if(err) {
             res.send(err);
           } else {
+            if (matchSelect && appendSelected) {
+              response.status = 'success';
+              response.message = 'match and user have been updated';
+            } else {
+              response.status = 'failed',
+              response.message = 'match and/or user are not updated';
+            }
             CronJob(user, match);
+            res.send(response);
           }
         });
       }
     });
-    if (matchSelect && appendSelected) {
-      response.status = 'success';
-      response.message = 'match and user have been updated';
-    } else {
-      response.status = 'failed',
-        response.message = 'match and/or user are not updated';
-    }
-    res.send(response);
   },
   place: (req, res) => {
     map.getmap(function(err, result) {
