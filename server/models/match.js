@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 let matchSchema = new Schema({
   creator: {type: Schema.Types.ObjectId, ref: 'User'},
   against: {type: Schema.Types.ObjectId, ref: 'User'},
+  name: String,
   coordinate: String,
   place: String,
   address: String,
