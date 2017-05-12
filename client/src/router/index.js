@@ -5,7 +5,6 @@ import Router from 'vue-router'
 import Login from '@/components/Login'
 import Register from '@/components/Register'
 import Home from '@/components/Home'
-import Updateuser from '@/components/Updateuser'
 import formRoom from '@/components/formRoom'
 
 Vue.use(VueAxios, axios)
@@ -26,11 +25,6 @@ export default new Router({
       path: '/Home',
       name: 'Home',
       component: Home
-    },
-    {
-      path: '/Updateuser',
-      name: 'Updateuser',
-      component: Updateuser
     },
     {
       path: '/formRoom',
