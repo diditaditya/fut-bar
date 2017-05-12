@@ -19,8 +19,9 @@ router.put('/user/:id', User.update);
 router.delete('/user/:id', User.delete);
 
 // Match routes
+router.put('/matching/:matchId', Match.selected);
 router.get('/maps', Match.place);
-router.get('/maps/:matchId', Match.placeDetail);
+router.post('/map', Match.pdetail);
 router.get('/matches', Match.showAll);
 router.post('/matches', Match.create);
 router.get('/match/:matchId', Match.showById);
