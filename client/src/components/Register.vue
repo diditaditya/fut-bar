@@ -47,7 +47,7 @@ export default {
       let self=this
         console.log(this.username);
         console.log(this.password);
-          axios.post('http://localhost:3000/signup', {
+          this.axios.post('http://localhost:3000/signup', {
                   username: this.username,
                   password: this.password,
                   email: this.email,

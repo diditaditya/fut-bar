@@ -2,7 +2,6 @@
   <div id="app">
     <navbar v-bind:session="session" v-on:logoutc="logout"></navbar>
     <router-view v-on:changesessionc="changesession" ></router-view>
-    <button type="button" name="button" ></button>
   </div>
 </template>
 
