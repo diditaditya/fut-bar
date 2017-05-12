@@ -2,10 +2,13 @@
   <nav class="nav indigo darken-2">
     <div class="nav-wrapper" >
       <a  class="brand-logo"><router-link to="/home">FUT-BAR</router-link></a>
-        <div v-if="session">
+        <div v-if="sessiondetail.session">
           <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li><router-link to="/Updateprofile">Update Profile</router-link></li>
+
+          <li><router-link to="/Updateuser">Update Profile</router-link></li>
           <li><router-link to="/">Create Room</router-link></li>
+
+          <li class="left-align" ><a @click="fungsiLogin" class="btn green waves-effect waves-light" to="/" >welcome, {{sessiondetail.username}}</a>   </li>
           <li><a @click="logoutc">Sign out</a></li>
           </ul>
         </div >
@@ -22,8 +25,13 @@
 <script>
 export default {
   props:{
-    session:{
-      type:Boolean
+    sessiondetail:{
+      session:{
+        type:Boolean
+      },
+      username:{
+        type:String
+      }
     }
   },
   methods:{

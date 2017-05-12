@@ -46,10 +46,15 @@ export default {
           password: this.password
         })
         .then(function(response) {
-          window.localStorage.setItem('token', JSON.stringify(response.data.token))
+          console.log(response.data);
           if(response.data.status==='success'){
+            window.localStorage.setItem('token', JSON.stringify(response.data.token))
+            window.localStorage.setItem('email', JSON.stringify(response.data.user.email))
+            window.localStorage.setItem('id', JSON.stringify(response.data.user.id))
+            window.localStorage.setItem('phone', JSON.stringify(response.data.user.phone))
+            window.localStorage.setItem('username', JSON.stringify(response.data.user.username))
             self.changesessionc()
-            self .$router.push('/home')
+            self.$router.push('/home')
           }else{
             self.message = response.data.message
           }
