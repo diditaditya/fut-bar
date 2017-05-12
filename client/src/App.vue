@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <navbar v-bind:session="session" v-on:logoutc="logout"></navbar>
+    <navbar v-bind:sessiondetail="sessiondetail" v-on:logoutc="logout"></navbar>
     <router-view v-on:changesessionc="changesession" ></router-view>
   </div>
 </template>
@@ -10,29 +10,42 @@ export default {
   name: 'app',
   data(){
     return{
-      session:false
+      sessiondetail:{
+          session:false,
+          username:''
+
+      }
+
     }
   },
   methods:{
     changesession(){
       let self=this
-      if(this.session==false){
-        self.session=true
+      if(self.sessiondetail.session==false){
+        self.sessiondetail.session=true
       }else{
-        self.session=false
+        self.sessiondetail.session=false
       }
     },
     logout(){
       let self=this
-      self.session=false
+      self.sessiondetail.session=false
       window.localStorage.removeItem('token')
+      window.localStorage.removeItem('email')
+      window.localStorage.removeItem('id')
+      window.localStorage.removeItem('phone')
+      window.localStorage.removeItem('username')
     }
   },
   created(){
     let self=this
     let token = window.localStorage.getItem('token')
+    console.log(self.sessiondetail.session);
     if(token!==null && token!==undefined){
-      self.session=true
+      self.sessiondetail.session=true
+      self.sessiondetail.username= window.localStorage.getItem('username')
+      console.log(self.sessiondetail.session);
+      console.log(self.sessiondetail.username);
     }
   }
 }
@@ -50,6 +63,10 @@ export default {
 
 }
 body{
-  background-image: url('./assets/background.jpg');
+  background: url('./assets/background.jpg') no-repeat center center fixed;
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
 }
 </style>

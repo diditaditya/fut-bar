@@ -2,6 +2,7 @@ const Match = require('../models/match');
 const User = require('../models/user');
 var map = require('../models/mapapi');
 const Relation = require('../helpers/relation.js');
+const CronJob = require('../background-jobs/cron-job');
 
 let matchControl = {
   showAll: function(req, res) {
@@ -80,7 +81,14 @@ let matchControl = {
         res.send(err);
       } else {
         Relation.user.appendCreatedMatch(req.body.creator, newMatch._id);
-        res.send(newMatch);
+        User.findById(req.body.creator, (err, user) => {
+          if(err) {
+            res.send(err);
+          } else {
+            CronJob(user, newMatch);
+            res.send(newMatch);
+          }
+        });
       }
     });
 
@@ -112,14 +120,27 @@ let matchControl = {
     let matchSelect = Relation.match.selected(req.params.matchId, req.body.userId);
     let appendSelected = Relation.user.appendSelectedMatch(req.body.userId, req.params.matchId);
     let response = {};
-    if (matchSelect && appendSelected) {
-      response.status = 'success';
-      response.message = 'match and user have been updated';
-    } else {
-      response.status = 'failed',
-        response.message = 'match and/or user are not updated';
-    }
-    res.send(response);
+    User.findById(req.body.userId, (err, user) => {
+      if(err) {
+        res.send(err);
+      } else {
+        Match.findById(req.params.matchId, (err, match) => {
+          if(err) {
+            res.send(err);
+          } else {
+            if (matchSelect && appendSelected) {
+              response.status = 'success';
+              response.message = 'match and user have been updated';
+            } else {
+              response.status = 'failed',
+              response.message = 'match and/or user are not updated';
+            }
+            CronJob(user, match);
+            res.send(response);
+          }
+        });
+      }
+    });
   },
   place: (req, res) => {
     map.getmap(function(err, result) {

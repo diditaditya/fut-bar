@@ -34,3 +34,6 @@ module.exports = {
     });
   }
 }
+
+// Backup API key
+// AIzaSyAZWSDAJkBjHDdaKe7tPnqT6WKxOzcLUAE
