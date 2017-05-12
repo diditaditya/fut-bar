@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="Home">
-    <div class="row" v-for="match in listmatch">
+    <div class="row" v-for="(match,index) in listmatch">
       <div class="col s12 m4 l2" ></div>
       <div class="col s12 m4 l10">
         <div class="row">
@@ -18,7 +18,7 @@
             </div>
             <div v-if="match.openStatus">
               <div class="card-action">
-                <a href="javascript:void(0)" >Challange this team</a>
+                <a href="javascript:void(0)" @click="challangeTeam(match._id,index)" >Challange this team</a>
               </div>
             </div>
             <div v-else>
@@ -45,17 +45,31 @@ export default {
   methods:{
     getlistmatch() {
         var self = this
-        this.axios.get('http://localhost:3000/matches', {}).then(function(response) {
+        this.axios.get('http://localhost:3000/matches', {
+
+        }).then(function(response) {
+          console.log(response.data);
             self.listmatch = response.data
             console.log(self.listBlogs);
         })
     },
-    challangeTeam(){
-      
-    }
-  },
+    challangeTeam(idmatch,index){
+      var self = this
+      console.log(idmatch);
+      console.log(self.listmatch);
+      console.log(index);
+      self.listmatch[index].openStatus=false;
+      let userid = window.localStorage.getItem('id')
+      this.axios.put(`http://localhost:3000/matching/${idmatch}`, {
+        userId : userid
+      }).then(function(response) {
+        console.log(response);
 
+    })
+  }
+},
   created(){
+    
         this.getlistmatch()
   }
 

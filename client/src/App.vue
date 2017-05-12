@@ -44,6 +44,7 @@ export default {
     if(token!==null && token!==undefined){
       self.sessiondetail.session=true
       self.sessiondetail.username= window.localStorage.getItem('username')
+      console.log('==============================');
       console.log(self.sessiondetail.session);
       console.log(self.sessiondetail.username);
     }

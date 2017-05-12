@@ -21,7 +21,7 @@
           </div>
             <div class="input-field col s6">
     <p><b>Nama Room</b></p>
-            <input type="text" >
+            <input v-model="room_name" type="text" >
     <p><b>Tempat Futsal</b></p>
             <input disabled v-model="name_place" type="text" >
     <p><b>Alamat</b></p>
@@ -51,20 +51,21 @@ export default {
       cordinate: '',
       time: '',
       date: '',
-      place_id: ''
+      place_id: '',
+      room_name: ''
     }
   },
   methods: {
     seedData() {
       let self = this;
-      axios.get('http://localhost:3000/maps').then((response) => {
+      this.axios.get('http://localhost:3000/maps').then((response) => {
         self.place_futsal = response.data;
-        self.place_id = response.data.place_id;
       });
     },
     getDetail(id) {
+      this.place_id = id;
       let self = this;
-      axios.post('http://localhost:3000/map', {
+      this.axios.post('http://localhost:3000/map', {
         id: id,
       }).then((response) => {
         self.address_place = response.data.formatted_address;
@@ -77,9 +78,10 @@ export default {
     createRoom() {
       let self = this;
       let temp = this.date + " " + this.time + ":00";
-      // window.localStorage.getItem('id');
+      let id = window.localStorage.getItem('id');
       axios.post('http://localhost:3000/matches', {
-        creator: '59152b2a624fba406747c3d9',
+        name: self.room_name,
+        creator: id,
         coordinate: self.cordinate,
         place: self.name_place,
         address: self.address_place,
