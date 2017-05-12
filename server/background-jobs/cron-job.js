@@ -20,12 +20,12 @@ function sendEmail(job, done) {
 
 let setCronJob = function(userData, match) {
 
-  console.log('cron-job is called!');
+  // console.log('cron-job is called!');
 
   let user = {};
-  if(userData.local) {
+  if (userData.local) {
     user = userData.local;
-  } else if(userData.facebook) {
+  } else if (userData.facebook) {
     user = userData.facebook;
   }
 
@@ -35,7 +35,7 @@ let setCronJob = function(userData, match) {
 
   let month = matchTime.getMonth();
   let date = matchTime.getDate();
-  let hour = matchTime.getHours()-1;
+  let hour = matchTime.getHours() - 1;
   let minute = matchTime.getMinutes();
 
   let setTime = `0 ${minute} ${hour} ${date} ${month} *`;
@@ -48,7 +48,7 @@ let setCronJob = function(userData, match) {
       email: user.email,
       subject: title
     }).save(function(err) {
-      if(!err) console.log(job.id);
+      if (!err) console.log(job.id);
       console.log('Error sending email');
     });
 

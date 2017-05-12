@@ -54,7 +54,7 @@ let matchControl = {
             console.log('goes to error in local match update');
             res.send(err);
           } else {
-            console.log('match is updated');
+            // console.log('match is updated');
             res.send(updated);
           }
         });
@@ -82,7 +82,7 @@ let matchControl = {
       } else {
         Relation.user.appendCreatedMatch(req.body.creator, newMatch._id);
         User.findById(req.body.creator, (err, user) => {
-          if(err) {
+          if (err) {
             res.send(err);
           } else {
             CronJob(user, newMatch);
@@ -121,11 +121,11 @@ let matchControl = {
     let appendSelected = Relation.user.appendSelectedMatch(req.body.userId, req.params.matchId);
     let response = {};
     User.findById(req.body.userId, (err, user) => {
-      if(err) {
+      if (err) {
         res.send(err);
       } else {
         Match.findById(req.params.matchId, (err, match) => {
-          if(err) {
+          if (err) {
             res.send(err);
           } else {
             if (matchSelect && appendSelected) {
@@ -133,7 +133,7 @@ let matchControl = {
               response.message = 'match and user have been updated';
             } else {
               response.status = 'failed',
-              response.message = 'match and/or user are not updated';
+                response.message = 'match and/or user are not updated';
             }
             CronJob(user, match);
             res.send(response);
