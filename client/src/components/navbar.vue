@@ -33,8 +33,10 @@ export default {
     }
   },
   methods:{
+
     logoutc: function() {
-        var self = this
+      let self = this
+      self.$router.push('/')
         self.$emit('logoutc')
     }
   },

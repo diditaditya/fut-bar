@@ -13,12 +13,12 @@
                 <p>{{match.address}}</p>
                 <p>{{match.phone}}</p>
                 <p>{{match.matchTime}}</p>
-                <p>avaible : {{match.openStatus}}</p>
+                <p>available : {{match.openStatus}}</p>
               </div>
             </div>
             <div v-if="match.openStatus">
               <div class="card-action">
-                <a href="javascript:void(0)" @click="challangeTeam(match._id,index)" >Challange this team</a>
+                <a href="javascript:void(0)" @click="challangeTeam(match._id,index)" >Challenge this team</a>
               </div>
             </div>
             <div v-else>
@@ -35,11 +35,13 @@
 </template>
 
 <script>
+
 export default {
   name:'home',
   data(){
     return {
-      listmatch:[]
+      listmatch:[],
+      database:''
     }
   },
   methods:{
@@ -64,13 +66,20 @@ export default {
         userId : userid
       }).then(function(response) {
         console.log(response);
-
+        self.database.ref('room/' + idmatch).set({
+          status: false
+        });
     })
   }
 },
   created(){
-    
-        this.getlistmatch()
+    this.database = firebase.database();
+        this.getlistmatch();
+        let self=this;
+        var room = this.database.ref('room/');
+        room.on('value', function(snapshot) {
+          self.getlistmatch();
+        });
   }
 
 

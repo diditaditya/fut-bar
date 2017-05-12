@@ -6,6 +6,16 @@
 </template>
 
 <script>
+
+// import firebase from 'firebase'
+// var config = {
+//   apiKey: "AIzaSyBI70yL-iqfyyBcurMYg8kdAObXtaEYA_o",
+//   authDomain: "futsalbareng-f3eca.firebaseapp.com",
+//   databaseURL: "https://futsalbareng-f3eca.firebaseio.com",
+//   storageBucket: "futsalbareng-f3eca.appspot.com"
+// };
+// firebase.initializeApp(config);
+// var database = firebase.database();
 export default {
   name: 'app',
   data(){
