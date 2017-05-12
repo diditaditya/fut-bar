@@ -24,6 +24,7 @@ passport.use('local-signin', new LocalStrategy(
           }
           if(res === true) {
             let userInfo = {
+              id: user._id,
               username: user.local.username,
               email: user.local.email,
             };
