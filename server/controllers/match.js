@@ -37,7 +37,9 @@ let matchControl = {
           $set: {
             creator: creator,
             against: against,
+            name: req.body.name || match.name,
             coordinate: req.body.coordinate || match.coordinate,
+            place_id: req.body.place_id || match.place_id,
             place: req.body.place || match.place,
             address: req.body.address || match.address,
             phone: req.body.phone || match.phone,
@@ -63,6 +65,8 @@ let matchControl = {
       creator: req.body.creator,
       against: null,
       coordinate: req.body.coordinate,
+      name: req.body.name,
+      place_id: req.body.place_id,
       place: req.body.place,
       address: req.body.address,
       phone: req.body.phone,
@@ -86,18 +90,20 @@ let matchControl = {
       if (err) {
         res.send(err);
       } else {
-        let removeFromCreated = Relation.user.removeCreatedMatch(match.creator, req.params.matchId);
-        let removeFromSelected = Relation.user.removeSelectedMatch(match.against, req.params.matchId);
-        console.log('removeFromCreated: ', removeFromCreated);
-        console.log('removeFromSelected: ', removeFromSelected);
+        // let removeFromCreated = Relation.user.removeCreatedMatch(match.creator, req.params.matchId);
+        // let removeFromSelected = Relation.user.removeSelectedMatch(match.against, req.params.matchId);
+        // console.log('removeFromCreated: ', removeFromCreated);
+        // console.log('removeFromSelected: ', removeFromSelected);
         let response = {};
-        if (removeFromCreated && removeFromSelected) {
-          response.status = 'success';
-          response.message = 'match has been deleted, and users have been updated';
-        } else {
-          response.status = 'failed',
-            response.message = 'match has been deleted, but users are not updated';
-        }
+        // if (removeFromCreated && removeFromSelected) {
+        //   response.status = 'success';
+        //   response.message = 'match has been deleted, and users have been updated';
+        // } else {
+        //   response.status = 'failed',
+        //     response.message = 'match has been deleted, but users are not updated';
+        // }
+        response.status = 'success';
+        response.message = 'match has been deleted';
         res.send(response);
       }
     });
