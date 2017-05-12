@@ -57,7 +57,7 @@ export default {
               .then(function(response) {
               console.log(response.data);
                 if(response.data.status==='success'){
-                    location.href = "http://localhost:8080/#/Login";
+                  self.$router.push('/')
 
                 }else{
 

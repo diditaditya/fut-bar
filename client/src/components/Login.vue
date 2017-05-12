@@ -48,11 +48,11 @@ export default {
         .then(function(response) {
           console.log(response.data);
           if(response.data.status==='success'){
-            window.localStorage.setItem('token', JSON.stringify(response.data.token))
-            window.localStorage.setItem('email', JSON.stringify(response.data.user.email))
-            window.localStorage.setItem('id', JSON.stringify(response.data.user.id))
-            window.localStorage.setItem('phone', JSON.stringify(response.data.user.phone))
-            window.localStorage.setItem('username', JSON.stringify(response.data.user.username))
+            window.localStorage.setItem('token', response.data.token)
+            window.localStorage.setItem('email', response.data.user.email)
+            window.localStorage.setItem('id',response.data.user.id)
+            window.localStorage.setItem('phone', response.data.user.phone)
+            window.localStorage.setItem('username', response.data.user.username)
             self.changesessionc()
             self.$router.push('/home')
           }else{
