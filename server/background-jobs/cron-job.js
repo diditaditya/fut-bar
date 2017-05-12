@@ -1,6 +1,7 @@
 const CronJob = require('cron').CronJob;
 const Kue = require('kue');
 const queue = Kue.createQueue();
+const sendmail = require('sendmail')();
 const User = require('../models/user');
 const Match = require('../models/match');
 
