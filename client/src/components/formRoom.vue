@@ -40,6 +40,8 @@
   </div>
 </template>
 <script>
+
+
 export default {
   name: 'formRoom',
   data() {
@@ -52,7 +54,8 @@ export default {
       time: '',
       date: '',
       place_id: '',
-      room_name: ''
+      room_name: '',
+      database:''
     }
   },
   methods: {
@@ -89,7 +92,10 @@ export default {
         matchTime: temp,
         place_id: self.place_id
       }).then((response) => {
-        console.log(response);
+        console.log(response.data._id);
+        this.database.ref('room/' + response.data._id).set({
+          status: true
+        });
         self.$router.push('/home');
       });
     }
@@ -97,6 +103,7 @@ export default {
   created() {
     console.log('seed');
     this.seedData();
+    this.database = firebase.database();
   }
 }
 </script>
