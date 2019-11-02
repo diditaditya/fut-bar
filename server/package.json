@@ -17,7 +17,7 @@
     "jsonwebtoken": "^7.4.0",
     "kue": "^0.11.5",
     "materialize-clockpicker": "^1.0.1",
-    "mongoose": "^4.9.8",
+    "mongoose": "^5.7.7",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "sendmail": "^1.1.1"
